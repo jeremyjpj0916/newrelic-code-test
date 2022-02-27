@@ -19,16 +19,18 @@ public final class OutputManager implements Runnable {
     private int uniqueTotal = 0;
     private int uniqueIntervalCount = 0;
     private int duplicateIntervalCount = 0;
-    private File file;
 
     public OutputManager(ConcurrentLinkedQueue<Integer> concurrentLinkedQueue) {
         this.concurrentLinkedQueue = concurrentLinkedQueue;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new PrintSummary(), 0, waitPeriod);
 
-        file = new File(outputFile);
+        File file = new File(outputFile);
         if (file.exists()) {
-            file.delete();
+            if(!file.delete()) {
+                System.out.println(outputFile + " lacks accessible file permissions. Application terminating!");
+                System.exit(0);
+            }
         }
     }
 
@@ -56,7 +58,6 @@ public final class OutputManager implements Runnable {
                         e.printStackTrace();
                     }
                 } catch (NoSuchElementException e) { //No element is okay if no client input.
-                    continue;
                 }
             }
         } catch (IOException e) {
