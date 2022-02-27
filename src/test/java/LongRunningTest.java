@@ -11,18 +11,26 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LongRunningTest {
     private static final String localHost = "127.0.0.1";
     private static final int correctPort = 4000;
-    private static final int invalidPort = 4001;
     private static final String outputfile = "numbers.log";
-    private static Thread serverThread;
-    private int standardRequestCount = 5000000;
+    private static final int standardRequestCount = 5000000;
 
     @BeforeAll
-    static void startServer(){
-        Application application = new Application();
-        serverThread = new Thread(() -> {
-            application.init();
-        });
+    static void startServer() {
+        Thread serverThread = new Thread(Application::init);
         serverThread.start();
+        try {
+            Thread.sleep(1000);
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(outputfile));
+                if (br.readLine() == null) {
+                    System.out.println(outputfile + " was detected empty. Pre-req test passed!");
+                }
+            } catch (IOException e) {
+                assertTrue(FALSE);
+            }
+        } catch (InterruptedException e) {
+            assertTrue(FALSE);
+        }
     }
 
     @DisplayName("Test five clients")
@@ -82,7 +90,7 @@ public class LongRunningTest {
             BufferedReader br = new BufferedReader(new FileReader(outputfile));
             String line;
             int fileLineCount = 0;
-            Set<String> uniqueEntries = new HashSet<String>(25000000);
+            Set<String> uniqueEntries = new HashSet<>(25000000);
             while((line=br.readLine())!=null) {
                 Integer.parseInt(line);
                 fileLineCount++;

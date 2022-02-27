@@ -30,10 +30,9 @@ public class ProcessRequests implements Runnable {
                 else if (!isNineDigitInteger(inputLine)) {
                     break;
                 }
-                else {
-                    int intInput = Integer.parseInt(trimLeadingZeros(inputLine));
-                    concurrentLinkedQueue.add(intInput);
-                }
+
+                int intInput = Integer.parseInt(trimLeadingZeros(inputLine));
+                concurrentLinkedQueue.add(intInput);
             }
         } catch (IOException e) {
             e.printStackTrace();

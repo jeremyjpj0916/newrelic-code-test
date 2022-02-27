@@ -16,7 +16,6 @@ public class ConsiderationTests {
     private static final String outputfile = "numbers.log";
     private static final int standardRequestCount = 500000;
 
-
     @BeforeAll
     static void startServer() {
         Thread serverThread = new Thread(Application::init);
@@ -116,7 +115,7 @@ public class ConsiderationTests {
         simpleClient.initializeConnection(localHost, correctPort);
         simpleClient.sendValidNumbers(standardRequestCount);
         try {
-            Thread.sleep(10000); //Sleep thread so I get some output from Server before test finishes
+            Thread.sleep(10000);
             BufferedReader br = new BufferedReader(new FileReader(outputfile));
             String line;
             int fileLineCount = 0;
@@ -203,7 +202,7 @@ public class ConsiderationTests {
         serverThread5.start();
 
         try {
-            Thread.sleep(10000); //Sleep thread so I get some output from Server before test finishes
+            Thread.sleep(10000);
             BufferedReader br = new BufferedReader(new FileReader(outputfile));
             String line;
             int fileLineCount = 0;
@@ -254,7 +253,7 @@ public class ConsiderationTests {
         serverThread5.start();
 
         try {
-            Thread.sleep(10000); //Sleep thread so I get some output from Server before test finishes
+            Thread.sleep(10000);
             BufferedReader br1 = new BufferedReader(new FileReader(outputfile));
             String line;
             Set<String> uniqueEntries = new HashSet<String>(8000000);
@@ -304,16 +303,5 @@ public class ConsiderationTests {
         } catch (NumberFormatException | IOException | InterruptedException e) {
             assertTrue(FALSE);
         }
-
     }
-
-/*    @DisplayName("Test termination call")
-    @Order(9)
-    @Test
-    public void testTermination() {
-        System.out.println("Testing terminate command");
-        SimpleClient simpleClient = new SimpleClient();
-        simpleClient.initializeConnection(localHost, correctPort);
-        simpleClient.sendPayload("terminate");
-    }*/
 }
