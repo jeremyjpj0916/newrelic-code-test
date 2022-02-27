@@ -10,9 +10,9 @@ public final class Application {
     private static final int port = 4000;
     private static final ConcurrentLinkedQueue<Integer> concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
     private static final ExecutorService executorService = Executors.newFixedThreadPool(clientLimit + 1);
-    private static ServerSocket serverSocket;
 
     public static void init() {
+        ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(port, clientLimit);
         } catch (IOException e) {

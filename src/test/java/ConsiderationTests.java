@@ -14,16 +14,12 @@ public class ConsiderationTests {
     private static final int correctPort = 4000;
     private static final int invalidPort = 4001;
     private static final String outputfile = "numbers.log";
-    private static Thread serverThread;
-    private int standardRequestCount = 500000;
+    private static final int standardRequestCount = 500000;
 
 
     @BeforeAll
     static void startServer() {
-        Application application = new Application();
-        serverThread = new Thread(() -> {
-            application.init();
-        });
+        Thread serverThread = new Thread(Application::init);
         serverThread.start();
         try {
             Thread.sleep(1000);
@@ -32,8 +28,6 @@ public class ConsiderationTests {
                 if (br.readLine() == null) {
                     System.out.println(outputfile + " was detected empty. Pre-req test passed!");
                 }
-            } catch (FileNotFoundException e) {
-                assertTrue(FALSE);
             } catch (IOException e) {
                 assertTrue(FALSE);
             }
@@ -55,7 +49,7 @@ public class ConsiderationTests {
     @Order(2)
     void testInvalidConnection() {
         SimpleClient simpleClient = new SimpleClient();
-        assertEquals(false, simpleClient.initializeConnection(localHost, invalidPort));
+        assertFalse(simpleClient.initializeConnection(localHost, invalidPort));
     }
 
     @DisplayName("Test invalid client input")
@@ -74,12 +68,12 @@ public class ConsiderationTests {
             if (br.readLine() == null) {
                 //Success case. Empty file means we did not handle junk input.
             }
-        } catch (FileNotFoundException e) {
-            assertTrue(FALSE);
         } catch (IOException e) {
             assertTrue(FALSE);
         }
-        simpleClient.terminateConnection();
+        if (!simpleClient.terminateConnection()){
+            assertTrue(FALSE);
+        }
     }
 
     @DisplayName("Test duplicate client input")
@@ -96,7 +90,7 @@ public class ConsiderationTests {
             BufferedReader br = new BufferedReader(new FileReader(outputfile));
             String line;
             int fileLineCount = 0;
-            Set<String> uniqueEntries = new HashSet<String>(2);
+            Set<String> uniqueEntries = new HashSet<>(2);
             while((line=br.readLine())!=null) {
                 Integer.parseInt(line);
                 fileLineCount++;
@@ -109,7 +103,9 @@ public class ConsiderationTests {
         } catch (IOException | InterruptedException e) {
             assertTrue(FALSE);
         }
-        simpleClient.terminateConnection();
+        if (!simpleClient.terminateConnection()){
+            assertTrue(FALSE);
+        }
     }
 
     @DisplayName("Test single client")
@@ -124,7 +120,7 @@ public class ConsiderationTests {
             BufferedReader br = new BufferedReader(new FileReader(outputfile));
             String line;
             int fileLineCount = 0;
-            Set<String> uniqueEntries = new HashSet<String>(1000000);
+            Set<String> uniqueEntries = new HashSet<>(1000000);
             while((line=br.readLine())!=null) {
                 Integer.parseInt(line);
                 fileLineCount++;
@@ -137,7 +133,9 @@ public class ConsiderationTests {
         } catch (NumberFormatException | IOException | InterruptedException e) {
             assertTrue(FALSE);
         }
-        simpleClient.terminateConnection();
+        if (!simpleClient.terminateConnection()){
+            assertTrue(FALSE);
+        }
     }
 
     @DisplayName("Test five clients")
@@ -161,27 +159,41 @@ public class ConsiderationTests {
 
         Thread serverThread1 = new Thread(() -> {
             simpleClient1.sendValidNumbers(standardRequestCount);
-            simpleClient1.terminateConnection();
+            if (!simpleClient1.terminateConnection()){
+                assertTrue(FALSE);
+            }
         });
 
         Thread serverThread2 = new Thread(() -> {
             simpleClient2.sendValidNumbers(standardRequestCount);
             simpleClient2.terminateConnection();
+            if (!simpleClient2.terminateConnection()){
+                assertTrue(FALSE);
+            }
         });
 
         Thread serverThread3 = new Thread(() -> {
             simpleClient3.sendValidNumbers(standardRequestCount);
             simpleClient3.terminateConnection();
+            if (!simpleClient3.terminateConnection()){
+                assertTrue(FALSE);
+            }
         });
 
         Thread serverThread4 = new Thread(() -> {
             simpleClient4.sendValidNumbers(standardRequestCount);
             simpleClient4.terminateConnection();
+            if (!simpleClient4.terminateConnection()){
+                assertTrue(FALSE);
+            }
         });
 
         Thread serverThread5 = new Thread(() -> {
             simpleClient5.sendValidNumbers(standardRequestCount);
             simpleClient5.terminateConnection();
+            if (!simpleClient5.terminateConnection()){
+                assertTrue(FALSE);
+            }
         });
 
         serverThread1.start();
@@ -195,7 +207,7 @@ public class ConsiderationTests {
             BufferedReader br = new BufferedReader(new FileReader(outputfile));
             String line;
             int fileLineCount = 0;
-            Set<String> uniqueEntries = new HashSet<String>(5000000);
+            Set<String> uniqueEntries = new HashSet<>(5000000);
             while((line=br.readLine())!=null) {
                 Integer.parseInt(line);
                 fileLineCount++;
@@ -229,25 +241,11 @@ public class ConsiderationTests {
         SimpleClient simpleClient5 = new SimpleClient();
         simpleClient5.initializeConnection(localHost, correctPort);
 
-        Thread serverThread1 = new Thread(() -> {
-            simpleClient1.sendValidNumbers(standardRequestCount);
-        });
-
-        Thread serverThread2 = new Thread(() -> {
-            simpleClient2.sendValidNumbers(standardRequestCount);
-        });
-
-        Thread serverThread3 = new Thread(() -> {
-            simpleClient3.sendValidNumbers(standardRequestCount);
-        });
-
-        Thread serverThread4 = new Thread(() -> {
-            simpleClient4.sendValidNumbers(standardRequestCount);
-        });
-
-        Thread serverThread5 = new Thread(() -> {
-            simpleClient5.sendValidNumbers(standardRequestCount);
-        });
+        Thread serverThread1 = new Thread(() -> simpleClient1.sendValidNumbers(standardRequestCount));
+        Thread serverThread2 = new Thread(() -> simpleClient2.sendValidNumbers(standardRequestCount));
+        Thread serverThread3 = new Thread(() -> simpleClient3.sendValidNumbers(standardRequestCount));
+        Thread serverThread4 = new Thread(() -> simpleClient4.sendValidNumbers(standardRequestCount));
+        Thread serverThread5 = new Thread(() -> simpleClient5.sendValidNumbers(standardRequestCount));
 
         serverThread1.start();
         serverThread2.start();
@@ -285,11 +283,24 @@ public class ConsiderationTests {
             br2.close();
             assertEquals(fileLineCount1, fileLineCount2);
             simpleClient6.terminateConnection();
-            simpleClient5.terminateConnection();
-            simpleClient4.terminateConnection();
-            simpleClient3.terminateConnection();
-            simpleClient2.terminateConnection();
-            simpleClient1.terminateConnection();
+            if (!simpleClient6.terminateConnection()) {
+                assertTrue(FALSE);
+            }
+            if (!simpleClient5.terminateConnection()) {
+                assertTrue(FALSE);
+            }
+            if (!simpleClient4.terminateConnection()) {
+                assertTrue(FALSE);
+            }
+            if (!simpleClient3.terminateConnection()) {
+                assertTrue(FALSE);
+            }
+            if (!simpleClient2.terminateConnection()) {
+                assertTrue(FALSE);
+            }
+            if (!simpleClient1.terminateConnection()) {
+                assertTrue(FALSE);
+            }
         } catch (NumberFormatException | IOException | InterruptedException e) {
             assertTrue(FALSE);
         }

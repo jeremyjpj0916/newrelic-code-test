@@ -72,7 +72,7 @@ public class ProcessRequests implements Runnable {
         return true;
     }
 
-    // Sadly standard lib java.lang.Character.isDigit(char ch) includes more than 0 to 9.
+    // Sadly standard lib java.lang.Character.isDigit(char ch) includes more than 0 to 9. So made my own.
     private static boolean isZeroToNine(char c) {
         return (c >= '0' && c <= '9');
     }
