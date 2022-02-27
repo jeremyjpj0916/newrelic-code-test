@@ -9,8 +9,6 @@ public class ProcessRequests implements Runnable {
     private final ConcurrentLinkedQueue<Integer> concurrentLinkedQueue;
     private final Socket clientSocket;
     private BufferedReader clientReader;
-    private String inputLine;
-    private int intInput;
 
     public ProcessRequests(Socket socket, ConcurrentLinkedQueue<Integer> concurrentLinkedQueue) {
         clientSocket = socket;
@@ -24,7 +22,7 @@ public class ProcessRequests implements Runnable {
         try {
             clientReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             while (true) {
-                inputLine = clientReader.readLine();
+                String inputLine = clientReader.readLine();
 
                 if (inputLine.equals("terminate")) {
                     System.exit(0);
@@ -33,7 +31,7 @@ public class ProcessRequests implements Runnable {
                     break;
                 }
                 else {
-                    intInput = Integer.parseInt(trimLeadingZeros(inputLine));
+                    int intInput = Integer.parseInt(trimLeadingZeros(inputLine));
                     concurrentLinkedQueue.add(intInput);
                 }
             }
@@ -57,7 +55,7 @@ public class ProcessRequests implements Runnable {
                 return source.substring(i);
             }
         }
-        return "0"; // If all 9 are 0's return 0.
+        return "0"; // If all  ints are 0's return 0.
     }
 
     // Faster than using regex matching like Pattern.compile("\\d{9}")
