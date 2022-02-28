@@ -127,7 +127,7 @@ And even running the JAR in isolate along with the long running test within my I
 
 All tests were performed on my personal windows PC w following specs:
 ```
-System Model:	                        GL65 Leopard 10SFKV
+System Model:	                        MSI GL65 Leopard 10SFKV
 Processor:	                        Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz, 2592 Mhz, 6 Core(s), 12 Logical Processor(s)
 Installed Physical Memory (RAM):	16.0 GB
 ```
