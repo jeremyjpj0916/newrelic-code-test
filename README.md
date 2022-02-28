@@ -22,6 +22,11 @@ private static final ExecutorService executorService = Executors.newFixedThreadP
 Why the +1 you might ask? I decided to keep a singular thread dedicated to backend just handling the logging + writing
 to number.log file via the OutputManager class.
 
+<b>Some assumptions</b>
+- I assume the disk where the java application will execute has proper permissions to write to the locical volume mount with proper disk space availible.
+- I assume no other application is currently running on localhost port 4000 and you have proper permissions to enable local traffic on that port as well.
+- I assume the computer has a proper amount of RAM for runtime JVM execution to store and process data at runtime.
+
 ## Future Enhancements
 I could add a batch and do file i/o less often than every time here with singular thread writes. Or rewrite
 the writer to be multithreaded as well in the background and safely find a way to write to file across parallel threads.
