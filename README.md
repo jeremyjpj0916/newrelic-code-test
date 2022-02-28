@@ -77,7 +77,7 @@ The jar I simply provided here for convenience as long as you have a compatible 
 
 ![JarExecutionStandalone](https://user-images.githubusercontent.com/31913027/155912580-67c8d01e-1f24-4903-a882-414d4bea8f0a.png)
 
-To execute JAR yourself, ensure you have your ```JAVA_HOME``` and ```PATH``` set correctly for java and hopefully your IDE, ex:
+To execute JAR yourself, ensure you have your ```JAVA_HOME``` and ```PATH``` set correctly for java and hopefully your IDE, Windows ex:
 ```
 C:\Users\jerem>echo %JAVA_HOME%
 C:\Program Files\Eclipse Adoptium\jdk-11.0.14.101-hotspot\
