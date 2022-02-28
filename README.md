@@ -24,7 +24,7 @@ to number.log file via the OutputManager class.
 
 <b>Some assumptions</b>
 - I assume the disk where the java application will execute has proper permissions to write to the locical volume mount with proper disk space availible.
-- I assume no other application is currently running on localhost port 4000 and you have proper permissions to enable local traffic on that port as well.
+- I assume no other application is currently running on localhost port 4000 and you have proper permissions to bind on that port as well.
 - I assume the computer has a proper amount of RAM for runtime JVM execution to store and process data at runtime.
 
 ## Future Enhancements
