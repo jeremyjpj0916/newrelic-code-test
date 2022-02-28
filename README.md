@@ -116,7 +116,7 @@ We can see that I am handling all 2.5 million requests here per 10 second.
 ![FiveClientValidInputTest](https://user-images.githubusercontent.com/31913027/155912608-ef2bbe61-f94d-4231-9801-cc431189f7f5.png)
 
 
-With 5 multi-thread clients in a 50-second interval each sending 5mil requests(5 separate tests), derived from my ```LongRunningTest.testFiveClientValidNumbers()```:
+With 5 multi-thread clients in a 50-second interval each sending 5mil requests(1 single test), derived from my ```LongRunningTest.testFiveClientValidNumbers()```:
 
 ![FiveClientLongRunningValidInputTest](https://user-images.githubusercontent.com/31913027/155912634-8a6be775-5507-41e9-8a3f-e26093f14562.png)
 
