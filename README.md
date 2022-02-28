@@ -77,6 +77,17 @@ The jar I simply provided here for convenience as long as you have a compatible 
 
 ![JarExecutionStandalone](https://user-images.githubusercontent.com/31913027/155912580-67c8d01e-1f24-4903-a882-414d4bea8f0a.png)
 
+To execute JAR yourself, ensure you have your ```JAVA_HOME``` and ```PATH``` set correctly for java and hopefully your IDE, ex:
+```
+C:\Users\jerem>echo %JAVA_HOME%
+C:\Program Files\Eclipse Adoptium\jdk-11.0.14.101-hotspot\
+```
+
+```
+C:\Users\jerem>echo %PATH%
+C:\Program Files\Eclipse Adoptium\jdk-11.0.14.101-hotspot\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2021.3.2\bin
+```
+
 # Performance Testing Results
 
 With 5 multi-thread clients in a 10-second interval each sending 500k requests(5 separate tests), derived from my ```ConsiderationTests.testFiveClientValidNumbers()```:
