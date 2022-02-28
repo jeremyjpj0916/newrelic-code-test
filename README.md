@@ -78,7 +78,7 @@ cleanup to my integrated testing.
 
 The jar I simply provided here for convenience as long as you have a compatible JVM.
 
-# Execution of the standolone Jar
+# Execution of the jar
 
 ![JarExecutionStandalone](https://user-images.githubusercontent.com/31913027/155912580-67c8d01e-1f24-4903-a882-414d4bea8f0a.png)
 
