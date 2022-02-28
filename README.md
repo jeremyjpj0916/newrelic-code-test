@@ -88,6 +88,12 @@ C:\Users\jerem>echo %PATH%
 C:\Program Files\Eclipse Adoptium\jdk-11.0.14.101-hotspot\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2021.3.2\bin
 ```
 
+If you wish to build from source and run the Consideration tests simultaneously, you can use the mvn command line but I would recommend using your IDE like so:
+
+![image](https://user-images.githubusercontent.com/31913027/155913738-bf89fb52-fbf5-45c5-bf0c-57e3cb3330c4.png)
+
+This will also produce your own local JAR in the ```target``` directory ready for use!
+
 # Performance Testing Results
 
 With 5 multi-thread clients in a 10-second interval each sending 500k requests(5 separate tests), derived from my ```ConsiderationTests.testFiveClientValidNumbers()```:
