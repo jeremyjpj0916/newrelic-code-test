@@ -132,6 +132,8 @@ Processor:	                        Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz, 25
 Installed Physical Memory (RAM):	16.0 GB
 ```
 
+<b>Note</b>: Also tested on my Mac mini 2020 with the new Apple M1 chip and 8GB of RAM. Similar performance. Used the IntelliJ for Apple silicon for IDE.
+
 # Challenge Guidelines
 
 ![Guidelines](https://user-images.githubusercontent.com/31913027/155912531-df285d64-d883-45e2-965f-11eeb21cef9a.png)
