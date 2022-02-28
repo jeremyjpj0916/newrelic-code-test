@@ -120,6 +120,13 @@ And even running the JAR in isolate along with the long running test within my I
 ![JarExecutionwithLongRunningTest](https://user-images.githubusercontent.com/31913027/155912690-0c962dbf-c4e9-49dc-8e8a-27c05dbbd048.png)
 
 
+All tests were performed on my personal windows PC w following specs:
+```
+System Model:	                    GL65 Leopard 10SFKV
+Processor:	                        Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz, 2592 Mhz, 6 Core(s), 12 Logical Processor(s)
+Installed Physical Memory (RAM):	16.0 GB
+```
+
 # Challenge Guidelines
 
 ![Guidelines](https://user-images.githubusercontent.com/31913027/155912531-df285d64-d883-45e2-965f-11eeb21cef9a.png)
