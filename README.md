@@ -73,6 +73,10 @@ cleanup to my integrated testing.
 
 The jar I simply provided here for convenience as long as you have a compatible JVM.
 
+# Execution of the standolone Jar
+
+![JarExecutionStandalone](https://user-images.githubusercontent.com/31913027/155912580-67c8d01e-1f24-4903-a882-414d4bea8f0a.png)
+
 # Performance Testing Results
 
 With 5 multi-thread clients in a 10-second interval each sending 500k requests(5 separate tests), derived from my ```ConsiderationTests.testFiveClientValidNumbers()```:
@@ -85,13 +89,20 @@ Received 2496934 unique numbers, 3066 duplicates. Unique total: 2496934
 ```
 We can see that I am handling all 2.5 million requests here per 10 second.
 
-PIC HERE
+![FiveClientValidInputTest](https://user-images.githubusercontent.com/31913027/155912608-ef2bbe61-f94d-4231-9801-cc431189f7f5.png)
+
 
 With 5 multi-thread clients in a 50-second interval each sending 5mil requests(5 separate tests), derived from my ```LongRunningTest.testFiveClientValidNumbers()```:
 
-PICS HERE
+![FiveClientLongRunningValidInputTest](https://user-images.githubusercontent.com/31913027/155912634-8a6be775-5507-41e9-8a3f-e26093f14562.png)
+
+And even running the JAR in isolate along with the long running test within my IDE:
+
+![JarExecutionwithLongRunningTest](https://user-images.githubusercontent.com/31913027/155912690-0c962dbf-c4e9-49dc-8e8a-27c05dbbd048.png)
+
 
 # Challenge Guidelines
 
-PIC GOES HERE
+![Guidelines](https://user-images.githubusercontent.com/31913027/155912531-df285d64-d883-45e2-965f-11eeb21cef9a.png)
+
 
