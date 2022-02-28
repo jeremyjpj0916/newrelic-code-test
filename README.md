@@ -30,7 +30,7 @@ to number.log file via the OutputManager class.
 ## Future Enhancements
 I could add a batch and do file i/o less often than every time here with singular thread writes. Or rewrite
 the writer to be multithreaded as well in the background and safely find a way to write to file across parallel threads.
-Would have to drop my ```BitSet``` usage in the OutputManager to do so as its not multi thread safe. 
+Would have to drop my ```BitSet``` usage in the OutputManager to do so as its not multi-thread safe. 
 But actually was able to reach desired perf without it though seemingly!
 
 # Tests
