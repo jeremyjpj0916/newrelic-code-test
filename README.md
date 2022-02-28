@@ -94,6 +94,8 @@ If you wish to build from source and run the ```ConsiderationTests``` simultaneo
 
 This will also produce your own local JAR in the ```target``` directory ready for use!
 
+![image](https://user-images.githubusercontent.com/31913027/155913906-ced69aed-4b45-438f-9f7a-f3583502b296.png)
+
 # Performance Testing Results
 
 With 5 multi-thread clients in a 10-second interval each sending 500k requests(5 separate tests), derived from my ```ConsiderationTests.testFiveClientValidNumbers()```:
