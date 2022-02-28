@@ -75,8 +75,22 @@ cleanup to my integrated testing.
     │       └── TerminationTest.java
     ├── target
     │   └── Application-1.0.0-SNAPSHOT.jar
+    
+```Application.java```: Serves as the entry point. Establishes the initial runtime ```OutputManager``` thread and client threads handled via ```ProcessRequests.java```.
 
-The jar I simply provided here for convenience as long as you have a compatible JVM.
+```OutputManager.java```: Class tasked with maintaining statistics and writing buffer to file via singular dedicated thread.
+
+```ProcessRequests.java```: Maximum of 5 threads running concurrently for this class. Mostly responsible for validating client input and storing into buffer. Also handles the server termination behavior.
+
+```/client/SimpleClient.java```: Handles client side integration testing responsibilities of my ```Application.java```
+
+```ConsiderationTests.java```: Handles testing all the considerations defined by guidance minus the termination requirement. Integrated into the maven build flow to ensure never breaking guidance behavior.
+
+```LongRunningTest.java```: Executes a longer integration test to review throughout degradation over time with the application.
+
+```TerminationTest.java```: Validates the server shutdown when proper client input is provided.
+
+The jar I simply provided for convenience as long as you have a compatible JVM.
 
 # Execution of the jar
 
@@ -132,7 +146,8 @@ Processor:	                        Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz, 25
 Installed Physical Memory (RAM):	16.0 GB
 ```
 
-<b>Note</b>: Also tested on my Mac mini 2020 with the new Apple M1 chip and 8GB of RAM. Similar performance. Used the IntelliJ for Apple silicon for IDE.
+<b>Note</b>: Also tested on my Mac mini 2020 with the new Apple M1 chip and 8GB of RAM. Similar performance for short lived ```ConsiderationTests```.
+Performance was weaker in the ```LongRunningTest```, likely due to weaker specs than my PC. Used the IntelliJ for Apple silicon for IDE.
 
 # Challenge Guidelines
 
