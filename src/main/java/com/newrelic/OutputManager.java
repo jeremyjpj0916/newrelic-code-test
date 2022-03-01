@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public final class OutputManager implements Runnable {
 
@@ -16,9 +17,9 @@ public final class OutputManager implements Runnable {
     private static final String outputFile = "numbers.log";
     private final BitSet bitSet = new BitSet(1000000000);
     private static final int waitPeriod = 10000;
-    private int uniqueTotal = 0;
-    private int uniqueIntervalCount = 0;
-    private int duplicateIntervalCount = 0;
+    private final AtomicInteger uniqueTotal = new AtomicInteger(0);
+    private final AtomicInteger uniqueIntervalCount = new AtomicInteger(0);
+    private final AtomicInteger duplicateIntervalCount = new AtomicInteger(0);
 
     public OutputManager(ConcurrentLinkedQueue<Integer> concurrentLinkedQueue) {
         this.concurrentLinkedQueue = concurrentLinkedQueue;
@@ -44,12 +45,12 @@ public final class OutputManager implements Runnable {
                 try {
                     int number = concurrentLinkedQueue.remove();
                     if (bitSet.get(number)) {
-                        duplicateIntervalCount++;
+                        duplicateIntervalCount.getAndIncrement();
                         continue;
                     }
                     bitSet.set(number);
-                    uniqueTotal++;
-                    uniqueIntervalCount++;
+                    uniqueTotal.getAndIncrement();
+                    uniqueIntervalCount.getAndIncrement();
                     try {
                         outputWriter.write(number + "");
                         outputWriter.newLine();
@@ -69,9 +70,9 @@ public final class OutputManager implements Runnable {
         @Override
         public void run() {
                 System.out.printf("Received %d unique numbers, %d duplicates. Unique total: %d\n",
-                        uniqueIntervalCount, duplicateIntervalCount, uniqueTotal);
-            uniqueIntervalCount = 0;
-            duplicateIntervalCount = 0;
+                        uniqueIntervalCount.get(), duplicateIntervalCount.get(), uniqueTotal.get());
+            uniqueIntervalCount.set(0);
+            duplicateIntervalCount.set(0);
 
         }
     }
